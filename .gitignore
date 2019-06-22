@@ -1,0 +1,4 @@
+appyhigh/Pipfile
+appyhigh/Pipfile.lock
+appyhigh/db.sqlite3
+*.pyc
