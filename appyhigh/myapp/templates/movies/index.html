@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>carbohydrates amount</th>
+            <th>fats amount</th>
+            <th>proteins amount</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for item in data %}
+        <tr>
+            <td>
+                <a href="{% url 'movies:detail' item.id %} ">{{item.name}}</a>
+            </td>
+            <td>{{item.carbohydrates_amount}}</td>
+            <td>{{item.fats_amount}}</td>
+            <td>{{item.proteins_amount}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

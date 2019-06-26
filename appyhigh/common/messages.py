@@ -1,0 +1,9 @@
+REQUIRED = "This field is required"
+REGISTERED_SUCCESSFULLY = "Registered Successfully"
+EMAIL_VALID = "Please enter a valid email"
+PASSWORD_VALIDATE = "The password must be 7 to 12 characters long"
+EMAIL_EXIST_MESSAGE = "This email is already registered"
+INVALID_DETAIL = "Please provide valid credentials"
+ACCESS_TOKEN_EXPIRED = 'Your access token has been expired'
+REFRESH_TOKEN_EXPIRED = 'Your refresh token has been expired'
+EMAIL_NOT_EXIST_MESSAGE = 'This email does not exist'
