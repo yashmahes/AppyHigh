@@ -6,18 +6,12 @@ from .models import User, Food
 
 
 class RegisterSerializer(serializers.Serializer):
-    name = serializers.CharField(
+    fullname = serializers.CharField(
         max_length=50, error_messages={'blank': REQUIRED})
     email = serializers.EmailField(max_length=30, error_messages={'blank': REQUIRED, 'invalid': EMAIL_VALID},
                                    validators=[validate_email])
     password = serializers.CharField(max_length=12, error_messages={
                                      'blank': REQUIRED}, validators=[validate_password])
-    country_code = serializers.CharField(
-        max_length=6, min_length=1, error_messages={'blank': REQUIRED})
-    phone_number = serializers.CharField(
-        error_messages={'blank': REQUIRED}, validators=[validate_phone_number])
-
-    is_blocked = serializers.BooleanField(default=True)
 
     access_token = serializers.CharField(max_length=255, default="")
 

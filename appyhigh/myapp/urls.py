@@ -10,8 +10,8 @@ app_name = "movies"
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path('', include(router.urls)),
-    path('index/', views.index, name='index'),
+    path('api/', include(router.urls)),
+    path('', views.index, name='index'),
     path('detail/<int:food_id>', views.detail, name='detail'),
     path('add_food/', views.add_food, name='add_food'),
     path('save_food', views.save_food, name='save_food'),

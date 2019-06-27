@@ -1,8 +1,8 @@
-from django.shortcuts import render
 from rest_framework import viewsets
 from .serializers import UserSerializer, FoodSerializer, RegisterSerializer, LoginSerializer
 from .models import User, Food
 from django.shortcuts import render, get_list_or_404, get_object_or_404
+from .forms import FoodForm, SearchFoodForm, LoginForm, RegisterForm
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -37,20 +37,51 @@ def detail(request, food_id):
 
 
 def add_food(request):
-    return render(request, 'home.html')
+    form = FoodForm()
+    return render(request, 'movies/add.html', {'form': form})
 
 
 def save_food(request):
-    return render(request, 'home.html')
+    if request.method == 'POST':
+        form = FoodForm(request.POST)
+        if form.is_valid():
+            # form.save()
+            a = Food()
+            print(form.cleaned_data)
+            a.name = form.cleaned_data['name']
+            a.carbohydrates_amount = form.cleaned_data['carbohydrates_amount']
+            a.fats_amount = form.cleaned_data['fats_amount']
+            a.proteins_amount = form.cleaned_data['proteins_amount']
+            a.user_id = 1
+            a.save()
+            data = Food.objects.all()
+            return render(request, 'movies/index.html', {'data': data})
+    else:
+        form = FoodForm()
+    return render(request, 'movies/add.html', {'form': form})
 
 
 def edit_food(request, food_id):
-    return render(request, 'home.html')
+    data = Food.objects.get(id=food_id)
+    return render(request, 'movies/edit.html', {'data': data})
 
 
 def update_food(request, food_id):
-    return render(request, 'home.html')
+    data = Food.objects.get(id=food_id)
+    print(request.POST)
+    form = FoodForm(request.POST, instance=data)
+    if form.is_valid():
+        print(form.cleaned_data)
+        form.save()
+        data = Food.objects.all()
+        return render(request, 'movies/index.html', {'data': data})
+
+    return render(request, 'movies/edit.html', {'data': data})
 
 
 def delete_food(request, food_id):
-    return render(request, 'home.html')
+    m = get_object_or_404(Food, id=food_id)
+
+    m.delete()
+    data = Food.objects.all()
+    return render(request, 'movies/index.html', {'data': data})

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<a href="{% url 'movies:add_food' %} ">Add Food</a>
 
 <table class="table table-bordered table-hover">
     <thead>
@@ -21,6 +22,7 @@
             <td>{{item.carbohydrates_amount}}</td>
             <td>{{item.fats_amount}}</td>
             <td>{{item.proteins_amount}}</td>
+            <td><a href="{% url 'movies:delete_food' item.id %} ">delete</a> </td>
         </tr>
         {% endfor %}
     </tbody>

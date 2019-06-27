@@ -16,9 +16,9 @@ class Food(models.Model):
 
 class User(models.Model):
     fullname = models.CharField(max_length=255)
-    birth_year = models.IntegerField()
     email = models.EmailField()
     username = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
 
     def __str__(self):
         return self.fullname
