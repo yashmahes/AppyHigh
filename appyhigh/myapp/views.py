@@ -5,6 +5,16 @@ from django.shortcuts import render, get_list_or_404, get_object_or_404, redirec
 from .forms import FoodForm, SearchFoodForm, LoginForm, RegisterForm
 
 
+def login(request):
+    form = LoginForm()
+    return render(request, 'movies/login.html', {'form': form})
+
+
+def register(request):
+    form = RegisterForm()
+    return render(request, 'movies/register.html', {'form': form})
+
+
 class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
@@ -30,7 +40,8 @@ def index(request):
 
         return render(request, 'movies/index.html', {'data': data})
     else:
-        redirect(login)
+        form = LoginForm()
+        return render(request, 'movies/login.html', {'form': form})
 
 
 def detail(request, food_id):
@@ -38,7 +49,8 @@ def detail(request, food_id):
         data = get_object_or_404(Food, id=food_id)
         return render(request, 'movies/detail.html', {'data': data})
     else:
-        redirect(login)
+        form = LoginForm()
+        return render(request, 'movies/login.html', {'form': form})
 
 
 def add_food(request):
@@ -46,7 +58,8 @@ def add_food(request):
         form = FoodForm()
         return render(request, 'movies/add.html', {'form': form})
     else:
-        redirect(login)
+        form = LoginForm()
+        return render(request, 'movies/login.html', {'form': form})
 
 
 def save_food(request):
@@ -69,7 +82,8 @@ def save_food(request):
             form = FoodForm()
         return render(request, 'movies/add.html', {'form': form})
     else:
-        redirect(login)
+        form = LoginForm()
+        return render(request, 'movies/login.html', {'form': form})
 
 
 def edit_food(request, food_id):
@@ -77,7 +91,8 @@ def edit_food(request, food_id):
         data = Food.objects.get(id=food_id)
         return render(request, 'movies/edit.html', {'data': data})
     else:
-        redirect(login)
+        form = LoginForm()
+        return render(request, 'movies/login.html', {'form': form})
 
 
 def update_food(request, food_id):
@@ -107,17 +122,14 @@ def delete_food(request, food_id):
         data = Food.objects.all()
         return render(request, 'movies/index.html', {'data': data})
     else:
-        redirect(login)
-
-
-def login(request):
-    form = LoginForm()
-    return render(request, 'movies/login.html', {'form': form})
+        form = LoginForm()
+        return render(request, 'movies/login.html', {'form': form})
 
 
 def logout(request):
     request.session['loggedin_user_id'] = None
-    redirect(login)
+    form = LoginForm()
+    return render(request, 'movies/login.html', {'form': form})
 
 
 def validate_login(request):
@@ -126,8 +138,9 @@ def validate_login(request):
         print(form.cleaned_data)
         username = form.cleaned_data['username']
         password = form.cleaned_data['password']
-        if username == 'admin' and password == 'password':
-            request.session['loggedin_user_id'] = 1
+        user = User.objects.filter(username=username, password=password)
+        if user:
+            request.session['loggedin_user_id'] = user[0].id
             data = Food.objects.all()
             return render(request, 'movies/index.html', {'data': data})
         else:
@@ -144,11 +157,13 @@ def save_user(request):
     form = RegisterForm(request.POST)
     if form.is_valid():
         print(form.cleaned_data)
-        username = form.cleaned_data['username']
-        password = form.cleaned_data['password']
-        if username == 'admin' and password == 'password':
-            data = Food.objects.all()
-            return render(request, 'movies/index.html', {'data': data})
-        else:
-            return render(request, 'movies/login.html', {'form': form})
-    return render(request, 'movies/login.html', {'form': form})
+        user = User()
+        user.fullname = form.cleaned_data['fullname']
+        user.email = form.cleaned_data['email']
+        user.password = form.cleaned_data['password']
+        user.username = user.email
+        user.save()
+        form = LoginForm()
+        return render(request, 'movies/login.html', {'form': form})
+    form = RegisterForm()
+    return render(request, 'movies/register.html', {'form': form})
