@@ -3,7 +3,7 @@
 
 <h2>Artist</h2>
 
-<form action="{%url 'movies:save_food' %} " method="POST" class="post-form">
+<form action="{%url 'movies:update_food' data.id %} " method="POST" class="post-form">
     {% csrf_token %}
     <div class="container">
         <br>
@@ -19,7 +19,7 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label"> Name:</label>
             <div class="col-sm-4">
-                <input type="text" name="Name" id="id_ename" required maxlength="100" value="{{ data.name }}" />
+                <input type="text" name="name" id="id_ename" required maxlength="100" value="{{ data.name }}" />
             </div>
         </div>
 

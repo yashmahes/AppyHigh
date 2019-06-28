@@ -12,6 +12,10 @@ app_name = "movies"
 urlpatterns = [
     path('api/', include(router.urls)),
     path('', views.index, name='index'),
+    path('login/', views.login, name='login'),
+    path('validate_login/', views.validate_login, name='validate_login'),
+    path('register/', views.register, name='register'),
+    path('save_user/', views.save_user, name='save_user'),
     path('detail/<int:food_id>', views.detail, name='detail'),
     path('add_food/', views.add_food, name='add_food'),
     path('save_food', views.save_food, name='save_food'),

@@ -2,10 +2,11 @@ from .models import Food
 from django import forms
 
 
-class FoodForm(forms.ModelForm):
-    class Meta:
-        model = Food
-        fields = "__all__"
+class FoodForm(forms.Form):
+    name = forms.CharField(max_length=255)
+    carbohydrates_amount = forms.IntegerField()
+    fats_amount = forms.IntegerField()
+    proteins_amount = forms.IntegerField()
 
 
 class SearchFoodForm(forms.Form):

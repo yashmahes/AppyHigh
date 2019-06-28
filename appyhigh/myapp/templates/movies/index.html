@@ -17,7 +17,7 @@
         {% for item in data %}
         <tr>
             <td>
-                <a href="{% url 'movies:detail' item.id %} ">{{item.name}}</a>
+                <a href="{% url 'movies:edit_food' item.id %} ">{{item.name}}</a>
             </td>
             <td>{{item.carbohydrates_amount}}</td>
             <td>{{item.fats_amount}}</td>
