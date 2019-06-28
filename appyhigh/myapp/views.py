@@ -133,8 +133,8 @@ def logout(request):
 
 
 def search_food(request):
-    name = request.GET.get("fname")
-    data = get_object_or_404(Food, id=food_name)
+    food_name = request.GET.get("fname")
+    data = get_object_or_404(Food, name=food_name)
     return render(request, 'movies/detail.html', {'data': data})
 
 
