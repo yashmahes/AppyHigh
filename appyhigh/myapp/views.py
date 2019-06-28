@@ -132,6 +132,12 @@ def logout(request):
     return render(request, 'movies/login.html', {'form': form})
 
 
+def search_food(request):
+    name = request.GET.get("fname")
+    data = get_object_or_404(Food, id=food_name)
+    return render(request, 'movies/detail.html', {'data': data})
+
+
 def validate_login(request):
     form = LoginForm(request.POST)
     if form.is_valid():

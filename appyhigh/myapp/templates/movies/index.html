@@ -28,4 +28,10 @@
     </tbody>
 </table>
 
+<form action="{% url 'movies:search_food' %} " method="get">
+    Food name: <input type="text" name="fname"><br>
+
+    <button type="submit">Search</button><br>
+</form>
+
 {% endblock %}

@@ -13,6 +13,8 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('', views.index, name='index'),
     path('login/', views.login, name='login'),
+    path('logout/', views.logout, name='logout'),
+    path('search_food/', views.search_food, name='search_food'),
     path('validate_login/', views.validate_login, name='validate_login'),
     path('register/', views.register, name='register'),
     path('save_user/', views.save_user, name='save_user'),
