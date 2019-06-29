@@ -11,10 +11,10 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <title>AppyHigh</title>
-    <a href="{% url 'movies:index' %} ">Home</a>
-    <a href="{% url 'movies:add_food' %} ">Add food</a>
-    <a href="{% url 'movies:register' %} ">Register new user</a>
-    <a href="{% url 'movies:logout' %} ">Logout</a>
+    <a href="{% url 'movies:index' %} " class="btn btn-default">Home</a>
+    <a href="{% url 'movies:add_food' %} " class="btn btn-default">Add food</a>
+    <a href="{% url 'movies:register' %} " class="btn btn-default">Register new user</a>
+    <a href="{% url 'movies:logout' %} " class="btn btn-default">Logout</a>
 
 </head>
 
@@ -22,6 +22,7 @@
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="#">AppyHigh</a>
     </nav>
+
     <main class="container">
         {% block content %}
 

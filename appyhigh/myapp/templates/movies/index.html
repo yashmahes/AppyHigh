@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<H3>Hi {{user.fullname}} </H3>
 <a href="{% url 'movies:add_food' %} ">Add Food</a>
 
 <table class="table table-bordered table-hover">

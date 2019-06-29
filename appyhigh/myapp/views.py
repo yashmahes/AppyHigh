@@ -3,6 +3,9 @@ from .serializers import UserSerializer, FoodSerializer, RegisterSerializer, Log
 from .models import User, Food
 from django.shortcuts import render, get_list_or_404, get_object_or_404, redirect
 from .forms import FoodForm, SearchFoodForm, LoginForm, RegisterForm
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.decorators import api_view
 
 
 def login(request):
@@ -37,8 +40,9 @@ def index(request):
     # movies = Movie.objects.get(id=1)
     if request.session.get('loggedin_user_id'):
         data = Food.objects.all()
-
-        return render(request, 'movies/index.html', {'data': data})
+        user_id = request.session.get('loggedin_user_id')
+        user = User.objects.get(id=user_id)
+        return render(request, 'movies/index.html', {'data': data, 'user': user})
     else:
         form = LoginForm()
         return render(request, 'movies/login.html', {'form': form})
@@ -74,7 +78,7 @@ def save_food(request):
                 a.carbohydrates_amount = form.cleaned_data['carbohydrates_amount']
                 a.fats_amount = form.cleaned_data['fats_amount']
                 a.proteins_amount = form.cleaned_data['proteins_amount']
-                a.user_id = 1
+                a.user_id = request.session.get('loggedin_user_id')
                 a.save()
                 data = Food.objects.all()
                 return render(request, 'movies/index.html', {'data': data})
@@ -106,7 +110,7 @@ def update_food(request, food_id):
         a.carbohydrates_amount = form.cleaned_data['carbohydrates_amount']
         a.fats_amount = form.cleaned_data['fats_amount']
         a.proteins_amount = form.cleaned_data['proteins_amount']
-        a.user_id = 1
+        a.user_id = request.session.get('loggedin_user_id')
         a.save()
         data = Food.objects.all()
         return render(request, 'movies/index.html', {'data': data})
@@ -138,6 +142,19 @@ def search_food(request):
     return render(request, 'movies/detail.html', {'data': data})
 
 
+@api_view(['GET'])
+def search_food_api(request):
+    food_name = request.GET.get("fname")
+    food_data = get_object_or_404(Food, name=food_name)
+    serializer = FoodSerializer(data=food_data)
+    response_object = {}
+    response_object['name'] = food_data.name
+    response_object['carbohydrates_amount'] = food_data.carbohydrates_amount
+    response_object['fats_amount'] = food_data.fats_amount
+    response_object['proteins_amount'] = food_data.proteins_amount
+    return Response({'data': response_object}, status=status.HTTP_200_OK)
+
+
 def validate_login(request):
     form = LoginForm(request.POST)
     if form.is_valid():
@@ -148,7 +165,9 @@ def validate_login(request):
         if user:
             request.session['loggedin_user_id'] = user[0].id
             data = Food.objects.all()
-            return render(request, 'movies/index.html', {'data': data})
+            user_id = request.session.get('loggedin_user_id')
+            user = User.objects.get(id=user_id)
+            return render(request, 'movies/index.html', {'data': data, 'user': user})
         else:
             return render(request, 'movies/login.html', {'form': form})
     return render(request, 'movies/login.html', {'form': form})

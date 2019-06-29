@@ -11,6 +11,7 @@ app_name = "movies"
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('api/', include(router.urls)),
+    path('api/search_food_api', views.search_food_api, name='search_food_api'),
     path('', views.index, name='index'),
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
