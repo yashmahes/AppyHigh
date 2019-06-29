@@ -81,7 +81,9 @@ def save_food(request):
                 a.user_id = request.session.get('loggedin_user_id')
                 a.save()
                 data = Food.objects.all()
-                return render(request, 'movies/index.html', {'data': data})
+                user_id = request.session.get('loggedin_user_id')
+                user = User.objects.get(id=user_id)
+                return render(request, 'movies/index.html', {'data': data, 'user': user})
         else:
             form = FoodForm()
         return render(request, 'movies/add.html', {'form': form})
@@ -113,7 +115,9 @@ def update_food(request, food_id):
         a.user_id = request.session.get('loggedin_user_id')
         a.save()
         data = Food.objects.all()
-        return render(request, 'movies/index.html', {'data': data})
+        user_id = request.session.get('loggedin_user_id')
+        user = User.objects.get(id=user_id)
+        return render(request, 'movies/index.html', {'data': data, 'user': user})
 
     return render(request, 'movies/edit.html', {'data': data})
 
@@ -124,7 +128,9 @@ def delete_food(request, food_id):
 
         m.delete()
         data = Food.objects.all()
-        return render(request, 'movies/index.html', {'data': data})
+        user_id = request.session.get('loggedin_user_id')
+        user = User.objects.get(id=user_id)
+        return render(request, 'movies/index.html', {'data': data, 'user': user})
     else:
         form = LoginForm()
         return render(request, 'movies/login.html', {'form': form})
