@@ -56,7 +56,7 @@ social-auth-app-django==3.1.0
 social-auth-core==3.2.0
 SQLAlchemy==1.2.16
 tzlocal==1.5.1
-urllib3==1.25.2
+urllib3==1.25.8
 username-generator==2.0.0
 virtualenv==16.4.0
 virtualenv-clone==0.5.1
