@@ -10,7 +10,7 @@ colorama==0.4.1
 CurrencyConverter==0.13.9
 cycler==0.10.0
 defusedxml==0.6.0
-Django==2.1.7
+Django==2.2.24
 djangorestframework==3.9.4
 et-xmlfile==1.0.1
 Flask==1.0.2
