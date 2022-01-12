@@ -34,7 +34,7 @@ oauthlib==3.0.1
 openpyxl==2.6.2
 pandas==0.24.1
 Pillow==6.0.0
-pipenv==2018.11.26
+pipenv==2022.1.8
 pycodestyle==2.5.0
 PyJWT==1.7.1
 pylint==2.2.2
